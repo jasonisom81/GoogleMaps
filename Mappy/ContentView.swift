@@ -1,13 +1,19 @@
 import SwiftUI
 import GooglePlaces
 
+struct IdentifiablePlace: Identifiable {
+    let id = UUID()
+    let place: GMSPlace
+}
+
 struct ContentView: View {
     @State private var isSearchSheetPresented = false
-    @State private var searchResults: [GMSPlace] = []
+    @State private var searchResults: [IdentifiablePlace] = []
+    @State private var selectedPlace: IdentifiablePlace?
 
     var body: some View {
         ZStack {
-            MapView(searchResults: $searchResults)
+            MapView(searchResults: $searchResults, selectedPlace: $selectedPlace)
                 .ignoresSafeArea()
 
             VStack {
@@ -28,11 +34,14 @@ struct ContentView: View {
         .sheet(isPresented: $isSearchSheetPresented) {
             SearchSheetView(searchResults: $searchResults, isPresented: $isSearchSheetPresented)
         }
+        .sheet(item: $selectedPlace) { placeWrapper in
+            PlaceDetailView(place: placeWrapper.place)
+        }
     }
 }
 
 struct SearchSheetView: UIViewControllerRepresentable {
-    @Binding var searchResults: [GMSPlace]
+    @Binding var searchResults: [IdentifiablePlace]
     @Binding var isPresented: Bool
 
     func makeUIViewController(context: Context) -> GMSAutocompleteViewController {
@@ -48,21 +57,22 @@ struct SearchSheetView: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, GMSAutocompleteViewControllerDelegate {
-        @Binding var searchResults: [GMSPlace]
+        @Binding var searchResults: [IdentifiablePlace]
         @Binding var isPresented: Bool
 
-        init(searchResults: Binding<[GMSPlace]>, isPresented: Binding<Bool>) {
+        init(searchResults: Binding<[IdentifiablePlace]>, isPresented: Binding<Bool>) {
             _searchResults = searchResults
             _isPresented = isPresented
         }
 
         func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-            searchResults = [place]
+            searchResults = [IdentifiablePlace(place: place)]
             isPresented = false
         }
 
         func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-            print("Error: \(error.localizedDescription)")
+            print("Autocomplete error: \(error.localizedDescription)")
+            isPresented = false
         }
 
         func wasCancelled(_ viewController: GMSAutocompleteViewController) {

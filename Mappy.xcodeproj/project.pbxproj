@@ -18,6 +18,7 @@
 		7ED11DCC2CFE6BF6009042BA /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED11DCB2CFE6BF6009042BA /* MapView.swift */; };
 		7ED11DCF2CFF5ABF009042BA /* GooglePlaces in Frameworks */ = {isa = PBXBuildFile; productRef = 7ED11DCE2CFF5ABF009042BA /* GooglePlaces */; };
 		7ED11DD12CFF5ABF009042BA /* GooglePlacesSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7ED11DD02CFF5ABF009042BA /* GooglePlacesSwift */; };
+		7ED11DDD2D00ACBE009042BA /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED11DDC2D00ACBE009042BA /* PlaceDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		7ED11DB92CFE6B89009042BA /* MappyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappyUITests.swift; sourceTree = "<group>"; };
 		7ED11DBB2CFE6B89009042BA /* MappyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7ED11DCB2CFE6BF6009042BA /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		7ED11DDC2D00ACBE009042BA /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
+		7ED11DDE2D00ADEA009042BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,11 +105,13 @@
 		7ED11D9D2CFE6B87009042BA /* Mappy */ = {
 			isa = PBXGroup;
 			children = (
+				7ED11DDE2D00ADEA009042BA /* Info.plist */,
 				7ED11D9E2CFE6B87009042BA /* MappyApp.swift */,
 				7ED11DA02CFE6B87009042BA /* ContentView.swift */,
 				7ED11DA22CFE6B88009042BA /* Assets.xcassets */,
 				7ED11DA42CFE6B88009042BA /* Preview Content */,
 				7ED11DCB2CFE6BF6009042BA /* MapView.swift */,
+				7ED11DDC2D00ACBE009042BA /* PlaceDetailView.swift */,
 			);
 			path = Mappy;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				7ED11DA12CFE6B87009042BA /* ContentView.swift in Sources */,
 				7ED11DCC2CFE6BF6009042BA /* MapView.swift in Sources */,
 				7ED11D9F2CFE6B87009042BA /* MappyApp.swift in Sources */,
+				7ED11DDD2D00ACBE009042BA /* PlaceDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +450,8 @@
 				DEVELOPMENT_TEAM = YN2SW33MSK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mappy/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show places near you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -473,6 +481,8 @@
 				DEVELOPMENT_TEAM = YN2SW33MSK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mappy/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show places near you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

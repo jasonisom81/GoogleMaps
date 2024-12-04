@@ -3,33 +3,50 @@ import GoogleMaps
 import GooglePlaces
 
 struct MapView: UIViewRepresentable {
-    @Binding var searchResults: [GMSPlace]
-    @State private var cameraPosition: GMSCameraPosition = .camera(withLatitude: 36.1699, longitude: -115.1398, zoom: 10.0)
+    @Binding var searchResults: [IdentifiablePlace]
+    @Binding var selectedPlace: IdentifiablePlace?
 
     func makeUIView(context: Context) -> GMSMapView {
         let mapView = GMSMapView()
-        mapView.camera = cameraPosition
+        mapView.delegate = context.coordinator
         return mapView
     }
 
     func updateUIView(_ uiView: GMSMapView, context: Context) {
-        if let firstResult = searchResults.first {
+        uiView.clear()
+
+        for result in searchResults {
+            let marker = GMSMarker(position: result.place.coordinate)
+            marker.title = result.place.name
+            marker.snippet = result.place.formattedAddress
+            marker.userData = result
+            marker.map = uiView
+        }
+
+        if let firstResult = searchResults.first?.place {
             let camera = GMSCameraPosition.camera(withLatitude: firstResult.coordinate.latitude,
                                                   longitude: firstResult.coordinate.longitude,
                                                   zoom: 14.0)
-            uiView.camera = camera
+            uiView.animate(to: camera)
+        }
+    }
 
-            // Clear existing markers
-            uiView.clear()
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(selectedPlace: $selectedPlace)
+    }
 
-            // Add markers for search results
-            for place in searchResults {
-                let marker = GMSMarker()
-                marker.position = place.coordinate
-                marker.title = place.name
-                marker.snippet = place.formattedAddress
-                marker.map = uiView
+    class Coordinator: NSObject, GMSMapViewDelegate {
+        @Binding var selectedPlace: IdentifiablePlace?
+
+        init(selectedPlace: Binding<IdentifiablePlace?>) {
+            _selectedPlace = selectedPlace
+        }
+
+        func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+            if let place = marker.userData as? IdentifiablePlace {
+                selectedPlace = place
             }
+            return true
         }
     }
 }

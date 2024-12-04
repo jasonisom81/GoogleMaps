@@ -1,3 +1,10 @@
+//
+//  MapView.swift
+//  Mappy
+//
+//  Created by Jason Isom on 12/2/24.
+//
+
 import SwiftUI
 import GoogleMaps
 import GooglePlaces
